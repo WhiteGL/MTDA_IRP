@@ -7,7 +7,7 @@ import numpy as np
 class Dataset(data.Dataset):
     def __init__(self, path, transform=None, normalize=False):
         self.path = path
-        self.data = np.load(path+"/kat_256.npy")
+        self.data = np.load(path+"/katirp_256.npy")
         self.label = np.load(path+"/katlabel_256.npy")
         self.transforms = transform
         self.normalize = normalize
@@ -28,17 +28,17 @@ class Dataset(data.Dataset):
         return torch.tensor(d, dtype=torch.float32), torch.tensor(label, dtype=torch.long)
 
     def __len__(self):
-        return self.label.shape[0]
+        return self.data.shape[0]
 
 
 def get_data_loader(batch_size, transforms, normalize, target=True, shuffle=True, train=True):
     """build the data loader of the data set"""
     if target and train:
         s = 'target_train'
-        dataset = Dataset('./data/condition4/train', transforms, normalize)
+        dataset = Dataset('./data/condition3/train', transforms, normalize)
     elif target and train is False:
         s = 'target_test'
-        dataset = Dataset('./data/condition4/test', transforms, normalize)
+        dataset = Dataset('./data/condition3/test', transforms, normalize)
     elif not target and train:
         s = 'source_train'
         dataset = Dataset('./data/condition1/train', transforms, normalize)

@@ -10,7 +10,7 @@ from model import CNNModel
 from test import test
 from torch.optim.lr_scheduler import ExponentialLR
 
-model_name = 'kat_1_4'
+model_name = 'kat_4source'
 cuda = True
 cudnn.benchmark = True
 lr = 1e-3
@@ -70,13 +70,13 @@ for epoch in range(n_epoch):
 
         # training model using source data
         data_source = next(data_source_iter)
-        s_img, s_label = data_source
-        #s_img, s_label, domain_label = data_source
+        #s_img, s_label = data_source
+        s_img, s_label, domain_label = data_source
 
         my_net.zero_grad()
         batch_size = len(s_label)
 
-        domain_label = torch.zeros(batch_size).long()
+        #domain_label = torch.zeros(batch_size).long()
 
         if cuda:
             s_img = s_img.cuda()
@@ -91,12 +91,12 @@ for epoch in range(n_epoch):
 
         # training model using target data
         data_target = next(data_target_iter)
-        t_img, _ = data_target
-        #t_img, _, domain_label = data_target
+        #t_img, _ = data_target
+        t_img, _, domain_label = data_target
 
         batch_size = len(t_img)
 
-        domain_label = torch.ones(batch_size).long()
+        #domain_label = torch.ones(batch_size).long()
 
         if cuda:
             t_img = t_img.cuda()

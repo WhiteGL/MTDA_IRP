@@ -30,7 +30,7 @@ class CNNModel(nn.Module):
         self.class_classifier.add_module('c_fc2', nn.Linear(100, 100))
         self.class_classifier.add_module('c_bn2', nn.BatchNorm1d(100))
         self.class_classifier.add_module('c_relu2', nn.ReLU(True))
-        self.class_classifier.add_module('c_fc3', nn.Linear(100, 4))
+        self.class_classifier.add_module('c_fc3', nn.Linear(100, 3))
         self.class_classifier.add_module('c_softmax', nn.LogSoftmax(dim=1))
 
         self.domain_classifier = nn.Sequential()
@@ -39,7 +39,7 @@ class CNNModel(nn.Module):
         self.domain_classifier.add_module('d_bn1', nn.BatchNorm1d(100))
         self.domain_classifier.add_module('d_relu1', nn.ReLU(True))
         #self.domain_classifier.add_module('d_fc2', nn.Linear(100, 2))
-        self.domain_classifier.add_module('d_fc2', nn.Linear(100, 2))
+        self.domain_classifier.add_module('d_fc2', nn.Linear(100, 4))
         self.domain_classifier.add_module('d_softmax', nn.LogSoftmax(dim=1))
 
     def forward(self, input_data, alpha):
